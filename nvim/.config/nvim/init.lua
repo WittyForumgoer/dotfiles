@@ -55,6 +55,7 @@ local set = {
 
     spellsuggest = "best,9",
     spelllang = { "pt_br", "en" },
+    spell = true,
 
     splitright = true,
     splitbelow = true,
@@ -65,6 +66,8 @@ local set = {
     foldmethod = "expr",
     foldexpr = "nvim_treesitter#foldexpr()",
     foldlevel = 20,
+
+    encoding = "utf-8",
 }
 for k, v in pairs(set) do
     vim.opt[k] = v
@@ -104,7 +107,11 @@ require("lazy").setup({
     --    DELIMITERS
     -- ################
     { "tpope/vim-surround" },
-    { "jiangmiao/auto-pairs" },
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true
+    },
 
     -- ###############
     --    WHICH-KEY
@@ -203,7 +210,7 @@ require("lazy").setup({
             })
         end,
     },
-  
+
     -- ################
     --    TREESITTER
     -- ################
@@ -271,7 +278,7 @@ require("lazy").setup({
             cmp.setup({
                 completion = { completeopt = "menu,menuone,noinsert" },
                 mapping = cmp.mapping.preset.insert({
-                    ["<c-space>"] = cmp.mapping.confirm({ select = true }),
+                    ["<tab>"] = cmp.mapping.confirm({ select = true }),
                     ["<C-n>"] = cmp.mapping.select_next_item(),
                     ["<C-p>"] = cmp.mapping.select_prev_item(),
                     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -288,6 +295,8 @@ require("lazy").setup({
                     }),
                 },
             })
+            cmp.event:on('confirm_done',
+                require("nvim-autopairs.completion.cmp").on_confirm_done())
         end,
     },
 
@@ -307,9 +316,17 @@ require("lazy").setup({
         },
     },
 
+    -- ###############
+    --    UNDO TREE
+    -- ###############
+    {
+        "mbbill/undotree"
+    },
+
     -- #################
     --    COLORSCHEME
     -- #################
+    { "miikanissi/modus-themes.nvim", priority = 1000 },
 
     -- ################
     --    StatusLine
@@ -372,8 +389,8 @@ require("lazy").setup({
     {
         "ggandor/leap.nvim",
         keys = {
-            { "s", "<Plug>(leap-forward)", mode = { "n", "x", "o" }, desc = "Leap forward" },
-            { "S", "<Plug>(leap-backward)", mode = { "n", "x", "o" }, desc = "Leap backward" },
+            { "gs", "<Plug>(leap-forward)", mode = { "n", "x", "o" }, desc = "Leap forward" },
+            { "gS", "<Plug>(leap-backward)", mode = { "n", "x", "o" }, desc = "Leap backward" },
         },
     },
     { "ggandor/flit.nvim", dependencies = "ggandor/leap.nvim", opts = {} },
@@ -384,6 +401,10 @@ require("lazy").setup({
     { "ThePrimeagen/harpoon" },
 
 })
+
+-- colorscheme configuration
+local default_colorscheme = "modus"
+vim.cmd.colorscheme(default_colorscheme)
 
 -- Syntax highlight em texto copiado
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -400,13 +421,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 local wk = require("which-key")
 wk.add({
     { "<leader>c", group = "code" },
-    {
-        "<leader>cf",
-        function()
-            require("conform").format({ async = true, lsp_fallback = true })
-        end,
-        desc = "code format",
-    },
+    -- {
+    --     "<leader>cf",
+    --     function()
+    --         require("conform").format({ async = true, lsp_fallback = true })
+    --     end,
+    --     desc = "code format",
+    -- },
 
     { "<leader>f", group = "file" },
     {
@@ -461,6 +482,8 @@ wk.add({
         { "<leader>sp", "<cmd>Telescope live_grep<cr>", desc = "search in project" },
         { "<leader>st", "<cmd>Telescope colorscheme<cr>", desc = "switch themes" },
     },
+
+    { "<leader>u", vim.cmd.UndotreeToggle },
 
     { "<leader>z", group = "spell" },
     {
