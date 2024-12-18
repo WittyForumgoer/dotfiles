@@ -410,12 +410,6 @@ require("lazy").setup({
         },
     },
     { "ggandor/flit.nvim", dependencies = "ggandor/leap.nvim", opts = {} },
-
-    -- #############
-    --    HARPOON
-    -- #############
-    { "ThePrimeagen/harpoon" },
-
 })
 
 -- colorscheme configuration
@@ -572,36 +566,6 @@ wk.add({
     },
     { "<leader><leader>", "<cmd>Telescope git_files<cr>", desc = "open file (git)" },
 
-    -- Harpoon
-    {
-        "<leader>,",
-        function()
-            require("harpoon.ui").nav_prev()
-        end,
-        desc = "harpoon prev",
-    },
-    {
-        "<leader>.",
-        function()
-            require("harpoon.ui").nav_next()
-        end,
-        desc = "harpoon next",
-    },
-    {
-        "<leader><",
-        function()
-            require("harpoon.mark").add_file()
-        end,
-        desc = "harpoon add",
-    },
-    {
-        "<leader>>",
-        function()
-            require("harpoon.ui").toggle_quick_menu()
-        end,
-        desc = "harpoon menu",
-    },
-
     -- Use <c-k>/<c-j> to move up/down in command history
     {
         mode = "c",
@@ -619,6 +583,10 @@ wk.add({
         { "ih", ":<c-u>Gitsigns select_hunk<cr>", desc = "text obj: hunk" },
         { "ah", ":<c-u>Gitsigns select_hunk<cr>", desc = "text obj: hunk" },
     },
+
+    -- Tabs
+    { "<leader>.", "gT", desc = "tab prev" },
+    { "<leader>,", "gt", desc = "tab next" },
 })
 
 -- Usa jk como alternativa para <esc>
