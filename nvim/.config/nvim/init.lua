@@ -170,7 +170,7 @@ require("lazy").setup({
             -- LSP servers to setup automatically with lspconfig
             local servers = {
                 "lua_ls",
-		"clangd",
+                "clangd",
             }
             require("mason").setup()
             require("mason-lspconfig").setup({ ensure_installed = servers })
@@ -185,6 +185,9 @@ require("lazy").setup({
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("NaniLspConfig", { clear = true }),
                 callback = function(ev)
+                    -- Tira virtual text de diagnósticos
+                    vim.diagnostic.config { virtual_text = false }
+
                     local lsp_map = function(mode, lhs, rhs, desc)
                         vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, desc = desc })
                     end
