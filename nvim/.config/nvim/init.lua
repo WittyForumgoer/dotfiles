@@ -608,8 +608,8 @@ wk.add({
     },
 
     -- Tabs
-    { "<leader>.", "gT", desc = "tab prev" },
-    { "<leader>,", "gt", desc = "tab next" },
+    { "<leader>.", "gt", desc = "tab prev" },
+    { "<leader>,", "gT", desc = "tab next" },
 })
 
 -- Usa jk como alternativa para <esc>
