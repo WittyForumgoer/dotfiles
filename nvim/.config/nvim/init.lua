@@ -350,8 +350,13 @@ require("lazy").setup({
     -- #################
     --    COLORSCHEME
     -- #################
-    { "miikanissi/modus-themes.nvim", priority = 1000 },
-
+    { "miikanissi/modus-themes.nvim" },
+    {
+        "rebelot/kanagawa.nvim",
+        opts = {
+            compile = true,
+        },
+    },
     -- ################
     --    StatusLine
     -- ################
@@ -436,7 +441,7 @@ require("lazy").setup({
 })
 
 -- colorscheme configuration
-local default_colorscheme = "modus"
+local default_colorscheme = "kanagawa"
 vim.cmd.colorscheme(default_colorscheme)
 
 -- Syntax highlight em texto copiado
