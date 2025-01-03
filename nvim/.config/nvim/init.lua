@@ -589,13 +589,6 @@ wk.add({
     },
     { "<leader><leader>", "<cmd>Telescope git_files<cr>", desc = "open file (git)" },
 
-    -- Use <c-k>/<c-j> to move up/down in command history
-    {
-        mode = "c",
-        { "<c-k>", "<up>", desc = "prev. command" },
-        { "<c-j>", "<down>", desc = "next command" },
-    },
-
     -- Add some quality of life text-objects:
     --  g --> buffer
     --  h --> hunk
@@ -618,6 +611,10 @@ vim.keymap.set("i", "jk", "<esc>", { silent = true })
 -- Use gj and gk in place of the normal j k movements.
 vim.keymap.set({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- Use <c-k>/<c-j> to move up/down in command history
+vim.keymap.set("c", "<c-k>", "<up>", { desc = "prev command "})
+vim.keymap.set("c", "<c-j>", "<down>", { desc = "next command "})
 
 -- <c-,> works as <esc> in the built-in terminal
 vim.keymap.set("t", [[<C-,>]], [[<C-\><C-n>]])
