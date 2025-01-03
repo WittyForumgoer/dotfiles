@@ -414,18 +414,13 @@ require("lazy").setup({
     -- #########
     --    GIT
     -- #########
-    { "lewis6991/gitsigns.nvim", event = "VeryLazy", opts = {} },
     {
-        "tpope/vim-fugitive",
-        cmd = "Git",
-        keys = {
-            { "<leader>gg", "<cmd>Git<cr>", desc = "git status" },
-            { "<leader>gl", "<cmd>Git log<cr>", desc = "git log" },
-            { "<leader>gP", "<cmd>Git push<cr>", desc = "git push" },
-            { "<leader>gb", "<cmd>Git blame<cr>", desc = "git blame" },
-            { "<leader>gm", "<cmd>Gdiff!<cr>", desc = "git merge file" },
-        },
+        "lewis6991/gitsigns.nvim",
+        opts = {
+            current_line_blame = true,
+        }
     },
+    { "tpope/vim-fugitive" },
 
     -- ###############
     --    FLIT/LEAP
@@ -501,6 +496,11 @@ wk.add({
         { "<leader>gR", require("gitsigns").reset_buffer, desc = "git reset buffer" },
         { "<leader>gf", "<cmd>diffget //2<cr>", desc = "diffget left" },
         { "<leader>gj", "<cmd>diffget //3<cr>", desc = "diffget right" },
+        { "<leader>gg", "<cmd>Git<cr>", desc = "git status" },
+        { "<leader>gl", "<cmd>Git log<cr>", desc = "git log" },
+        { "<leader>gP", "<cmd>Git push<cr>", desc = "git push" },
+        { "<leader>gb", "<cmd>Git blame<cr>", desc = "git blame" },
+        { "<leader>gm", "<cmd>Gdiffsplit!<cr>", desc = "git merge file" },
     },
 
     { "<leader>h", group = "help" },
