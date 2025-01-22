@@ -60,7 +60,7 @@ local set = {
     splitright = true,
     splitbelow = true,
 
-    conceallevel = 2,
+    conceallevel = 0,
     concealcursor = "c",
 
     foldmethod = "expr",
@@ -357,6 +357,15 @@ require("lazy").setup({
             compile = true,
         },
     },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        opts = {
+            flavour = "mocha",
+        }
+    },
+
     -- ################
     --    StatusLine
     -- ################
@@ -437,7 +446,7 @@ require("lazy").setup({
 })
 
 -- colorscheme configuration
-local default_colorscheme = "kanagawa"
+local default_colorscheme = "catppuccin"
 vim.cmd.colorscheme(default_colorscheme)
 
 -- Syntax highlight em texto copiado
@@ -455,13 +464,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 local wk = require("which-key")
 wk.add({
     { "<leader>c", group = "code" },
-    -- {
-    --     "<leader>cf",
-    --     function()
-    --         require("conform").format({ async = true, lsp_fallback = true })
-    --     end,
-    --     desc = "code format",
-    -- },
 
     { "<leader>f", group = "file" },
     {
